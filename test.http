@@ -1,0 +1,7 @@
+POST http://127.0.0.1:3000/dodaj
+Content-Type: application/json
+
+{
+  "pierwszy": 3,
+  "drugi": 5
+}
