@@ -1,5 +1,2 @@
-class dodawacz():
-
-    @staticmethod
-    def add(pierwszy, drugi) -> int:
-        return pierwszy + drugi
+def add(pierwszy: int, drugi: int) -> int:
+    return pierwszy + drugi
