@@ -1,9 +1,11 @@
+from pydantic import BaseModel
 
 from ApiRequest import ApiRequest
 from ApiRequestImie import ApiRequestImie
 from calculator import dodawacz
-from fastapi import FastAPI, APIRouter, Request
+from fastapi import FastAPI, APIRouter, Request, BackgroundTasks
 from namechecker import namechecker
+from utils import utils
 
 app = FastAPI()
 
@@ -12,8 +14,15 @@ async def log_requests(request: Request, call_next):
     print(f"Przyszło żądanie: {request.method} {request.url}")
     response = await call_next(request)
     print(f"Status odpowiedzi: {response.status_code}")
-
     return response
+
+class TextRequest(BaseModel):
+    text: str
+
+@app.post("/addtotext")
+def addToText(payload: TextRequest, background_tasks: BackgroundTasks):
+    background_tasks.add_task(utils.addToFile(payload.text))
+    return {"zapisano": payload.text}
 
 @app.post("/dodaj")
 def dodaj(payload: ApiRequest):
