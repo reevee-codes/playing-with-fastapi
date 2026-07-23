@@ -33,3 +33,6 @@ API documentation:
 ```bash
 ruff check . --fix
 ```
+
+testy
+pytest tests\test_main.py -v
